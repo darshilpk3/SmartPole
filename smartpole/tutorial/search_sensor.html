@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <!-- Meta, title, CSS, favicons, etc. -->
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>Gateway Details. </title>
+
+  <!-- Bootstrap -->
+  <link href="../vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Font Awesome -->
+  <link href="../vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+  <!-- NProgress -->
+  <link href="../vendors/nprogress/nprogress.css" rel="stylesheet">
+  <!-- iCheck -->
+  <link href="../vendors/iCheck/skins/flat/green.css" rel="stylesheet">
+
+  <!-- Custom Theme Style -->
+  <link href="../build/css/custom.min.css" rel="stylesheet">
+  <style>
+  tr:hover{background-color: #f5f5f5}
+  </style>
+</head>
+
+<body class="nav-md" onload  ="getNumberOfGateways(); getNumberOfData(); getNumberOfSensors(); ">
+  <script src = "https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src = "sensor_search_page.js"></script>
+  <script src = "front_page.js"></script>
+  <div class="container body">
+    <div class="main_container">
+      <div class="col-md-3 left_col">
+        <div class="left_col scroll-view">
+          <div class="navbar nav_title" style="border: 0;">
+            <a href="front_page.html" class="site_title">
+              <div class="profile_pic">
+              <img src="smart-city.jpg" alt="..." class="img-circle profile_img">
+            </div> <span>Smart Pole!</span></a>
+          </div>
+
+          <div class="clearfix"></div>
+
+          <!-- menu profile quick info -->
+          <!-- /menu profile quick info -->
+
+          <br />
+
+          <!-- sidebar menu -->
+          <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
+            <div class="menu_section">
+              <h3>General</h3>
+              <ul class="nav side-menu">
+                <li><a><i class="fa fa-home"></i> Search <span class="fa fa-chevron-down"></span></a>
+                  <ul class="nav child_menu">
+                    <li><a href="search_sensor.html">Sensor Search</a></li>
+                  </ul>
+                </li>
+              </ul>
+            </div>
+
+          </div>
+          <!-- /sidebar menu -->
+
+          <!-- /menu footer buttons -->
+          <div class="sidebar-footer hidden-small">
+            &nbsp;&nbsp;&nbsp;&nbsp;<img src="R_K_INFRATEL.png" height="90" width="170"></img>
+            <br>
+            &nbsp;&nbsp;&nbsp;&nbsp;<img src="Airlink.png" height="90" width="170"></img>
+          </div>
+          <!-- /menu footer buttons -->
+        </div>
+      </div>
+
+      <!-- top navigation -->
+      <div class="top_nav">
+        <div class="nav_menu">
+          <nav>
+            <div class="nav toggle">
+              <a id="menu_toggle"><i class="fa fa-bars"></i></a>
+            </div>
+            <ul class="nav navbar-nav navbar-right">
+              <li class="">
+                <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                  <label id = "user"></label>
+                  <span class=" fa fa-angle-down"></span>
+                </a>
+                <ul class="dropdown-menu dropdown-usermenu pull-right">
+                  <li><a href="javascript:;"> Profile</a></li>
+                  <li><a onclick="logout()"><i class="fa fa-sign-out pull-right"></i> Log Out</a></li>
+                </ul>
+              </li>
+            </ul>
+          </nav>
+        </div>
+      </div>
+      <!-- /top navigation -->
+
+      <!-- page content -->
+      <div class="right_col" role="main">
+        <div class="">
+          <div class="clearfix"></div>
+
+          <div class="clearfix"></div>
+          <div class="row tile_count">
+            <div class="col-md-4 col-sm-6 col-xs-8 tile_stats_count">
+              <center>
+                <span class="count_top"><i class="fa fa-user"></i> Total Gateway</span>
+
+                <div class="count" id="NumberOfGateways"></div>
+              </center>
+            </div>
+            <div class="col-md-4 col-sm-6 col-xs-8 tile_stats_count">
+              <center>
+                <span class="count_top"><i class="fa fa-clock-o"></i> Total Sensors</span>
+                <div class="count green" id="NumberOfSensors"></div>
+              </center>
+            </div>
+
+            <div class="col-md-4 col-sm-6 col-xs-8 tile_stats_count">
+              <center>
+                <span class="count_top"><i class="fa fa-user"></i> Total Collections of Data</span>
+                <div class="count" id="NumberOfData"></div>
+              </center>
+            </div>
+          </div>
+          <div class = "row">
+            <div>
+                <div class="col-md-5 col-sm-5 col-xs-12 form-group top_search">
+                  <div class="input-group">
+                    <input type="text" id = "search_id"class="form-control" placeholder="Search by id">
+                    <span class="input-group-btn">
+                      <button class="btn btn-default" type="button" onclick="getdetails()" data-toggle="collapse" data-target="#sen_id">Go!</button>
+                    </span>
+                  </div>
+                </div>
+            </div>
+            <div class="title_right">
+                <div class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">
+                  <div class="input-group">
+                    <select id ="search_type"  class="form-control" placeholder="Search by type">
+                      <option class="form-control" value="">Search by type</option>
+                      <option class="form-control" value="TEMP">Temperature</option>
+                      <option class="form-control" value="VEHICLE COUNTER">Vehicle Counter</option>
+                    </select>
+                    <span class="input-group-btn">
+                      <button class="btn btn-default" type="button" data-toggle="collapse" onclick="getdetailsbytype();" data-target="#sen_id">Go!</button>
+                    </span>
+                  </div>
+                </div>
+              </div>
+          </div>
+          <div class="row ">
+            <div id="sen_id" class="collapse">
+              <center>
+                <div class="bootstrap-iso">
+                  <div class="container-fluid">
+                    <div class="col-md-12 col-sm-20 col-xs-20">
+                      <div class="x_panel">
+                        <div class="x_title">
+                          <h2>Gateway Details </h2>
+                          <div class="clearfix"></div>
+                        </div>
+                        <div class="x_content">
+                          <table class="table">
+                            <thead>
+                              <tr>
+                                <th>#</th>
+                                <th>Sensor ID</th>
+                                <th>Gateway ID</th>
+                                <th>Sensor type</th>
+                                <th>Operation<th>
+                                </tr>
+                              </thead>
+                              <tbody>
+                              </tbody>
+                            </table>
+
+                          </div>
+                        </div>
+                      </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="clearfix"></div>
+
+              <div class="clearfix"></div>
+            </div>
+          </div>
+        </div>
+        <!-- /page content -->
+
+        <!-- footer content -->
+        <footer>
+          <div class="pull-right">
+            R K Infratel.!
+          </div>
+          <div class="clearfix"></div>
+        </footer>
+        <!-- /footer content -->
+      </div>
+    </div>
+    <script src="userinfo.js"></script>
+    <script src = "logout.js"></script>
+    <!-- jQuery -->
+    <script src="../vendors/jquery/dist/jquery.min.js"></script>
+    <!-- Bootstrap -->
+    <script src="../vendors/bootstrap/dist/js/bootstrap.min.js"></script>
+    <!-- FastClick -->
+    <script src="../vendors/fastclick/lib/fastclick.js"></script>
+    <!-- NProgress -->
+    <script src="../vendors/nprogress/nprogress.js"></script>
+    <!-- iCheck -->
+    <script src="../vendors/iCheck/icheck.min.js"></script>
+
+    <!-- Custom Theme Scripts -->
+    <script src="../build/js/custom.min.js"></script>
+  </body>
+  </html>
